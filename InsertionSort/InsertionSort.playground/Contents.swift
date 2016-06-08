@@ -1,17 +1,16 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-/**
- * My Implementation
- */
+
+//: My Implementation
 func insertionSort(array:[Int]) -> [Int] {
     var sortedArray = [Int]()
     
-    for i in 0...array.count-1 {
+    for i in 0..<array.count {
         if sortedArray.count == 0 {
             sortedArray.append(array[i])
         } else {
-            for j in 0...sortedArray.count-1 {
+            for j in 0..<sortedArray.count {
                 if sortedArray[j] >= array[i] {
                     sortedArray.insert(array[i], atIndex: j)
                     break
