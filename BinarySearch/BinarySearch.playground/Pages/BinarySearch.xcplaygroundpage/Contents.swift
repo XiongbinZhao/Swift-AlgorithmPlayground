@@ -15,21 +15,35 @@ func insertionSort(array:[Int]) -> [Int] {
     return a
 }
 
-func binarySearch(array:[Int], target:Int) -> Int? {
-    var next = [Int]()
-    let length = array.count
-    let leftCount = length/2 - 1
-    if target <= array[leftCount] {
-        next = Array(array[0...leftCount])
+func binarySearch(array:[Int], target:Int, range:Range<Int>) -> Int? {
+    
+    if range.startIndex >= range.endIndex {
+        return nil
     } else {
-        next = Array(array[leftCount+1...length-1])
+        let midIdx = range.startIndex + (range.endIndex - range.startIndex) / 2
+        if target < array[midIdx] {
+            return binarySearch(array, target: target, range: range.startIndex..<midIdx)
+        } else if target == array[midIdx]{
+            return midIdx
+        } else {
+            return binarySearch(array, target: target, range: midIdx+1..<range.endIndex)
+        }
     }
     
-    if next.count != 1 {
-        return binarySearch(next, target: target)
-    } else {
-        return next[0] == target ? next[0] : nil
-    }
+//    var next = [Int]()
+//    let length = array.count
+//    let leftCount = length/2 - 1
+//    if target <= array[leftCount] {
+//        next = Array(array[0...leftCount])
+//    } else {
+//        next = Array(array[leftCount+1...length-1])
+//    }
+//    
+//    if next.count != 1 {
+//        return binarySearch(next, target: target)
+//    } else {
+//        return next[0] == target ? next[0] : nil
+//    }
 }
 
 //Sample Implementation
@@ -49,13 +63,22 @@ func sampleBinarySearch<T: Comparable>(a:[T], key:T, range:Range<Int>) -> Int? {
     }
 }
 
-
 let arrayToSearch = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
 
 let sortedArray = insertionSort(arrayToSearch)
 
 let final = sampleBinarySearch(sortedArray, key: 43, range: 0..<sortedArray.count)
+let final1 = binarySearch(sortedArray, target: 43, range: 0..<sortedArray.count)
 
+let range:Range<Int> = 11..<20
+
+
+func brackets<Element: ForwardIndexType>(x: Range<Element>, _ i: Element) -> Element {
+    return x[i] // Just forward to subscript
+}
+
+
+brackets(-99..<100, 0)
 
 
 
